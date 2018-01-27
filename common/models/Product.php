@@ -1,7 +1,8 @@
 <?php
 
-namespace app\models;
+namespace common\models;
 
+use common\models\ProductProperty;
 use Yii;
 use yii\web\UploadedFile;
 
@@ -90,6 +91,12 @@ class Product extends \yii\db\ActiveRecord
     public function getCategory()
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
+    }
+
+    public function getProductProperties()
+    {
+        return $this->hasMany(ProductProperty::classname(),['id'=>'comment_id'])
+            ->viaTable('product_product_property',['product_property_id','id']);
     }
 
     /**

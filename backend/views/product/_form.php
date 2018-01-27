@@ -3,10 +3,10 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
-use app\models\Category;
+use common\models\Category;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Product */
+/* @var $model common\models\Product */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

@@ -4,6 +4,8 @@
 namespace frontend\controllers;
 
 
+use common\models\Product;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 
 class CatalogController extends Controller
@@ -17,6 +19,9 @@ class CatalogController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $dataProvider = new ActiveDataProvider([
+            'query' => Product::find()
+        ]);
+        return $this->render('index', ['listDataProvider' => $dataProvider]);
     }
 }

@@ -3,17 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Category;
+use common\models\ProductPropertyType;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 /**
- * CategoryController implements the CRUD actions for Category model.
+ * ProductPropertyTypeController implements the CRUD actions for ProductPropertyType model.
  */
-class CategoryController extends Controller
+class ProductPropertyTypeController extends Controller
 {
     /**
      * @inheritdoc
@@ -31,13 +30,13 @@ class CategoryController extends Controller
     }
 
     /**
-     * Lists all Category models.
+     * Lists all ProductPropertyType models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Category::find(),
+            'query' => ProductPropertyType::find(),
         ]);
 
         return $this->render('index', [
@@ -46,7 +45,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Displays a single Category model.
+     * Displays a single ProductPropertyType model.
      * @param integer $id
      * @return mixed
      */
@@ -58,28 +57,25 @@ class CategoryController extends Controller
     }
 
     /**
-     * Creates a new Category model.
+     * Creates a new ProductPropertyType model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Category();
+        $model = new ProductPropertyType();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->cover = UploadedFile::getInstance($model, 'cover');
-            if ($model->upload() && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
-     * Updates an existing Category model.
+     * Updates an existing ProductPropertyType model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -87,33 +83,18 @@ class CategoryController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        if ($model->load(Yii::$app->request->post())) {
-            $model->cover = UploadedFile::getInstance($model, 'cover');
-            if ($model->upload() && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-
-    public function actionDeleteImage($id) {
-        $model = Category::findOne($id);
-        if ($model->deleteImage()) {
-            Yii::$app->session->setFlash('success',
-                'Your image was removed successfully. Upload another by clicking Browse below');
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            Yii::$app->session->setFlash('error',
-                'Error removing image. Please try again later or contact the system admin.');
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
-        return $this->render('view', ['model'=>$model]);
     }
 
     /**
-     * Deletes an existing Category model.
+     * Deletes an existing ProductPropertyType model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -126,15 +107,15 @@ class CategoryController extends Controller
     }
 
     /**
-     * Finds the Category model based on its primary key value.
+     * Finds the ProductPropertyType model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Category the loaded model
+     * @return ProductPropertyType the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Category::findOne($id)) !== null) {
+        if (($model = ProductPropertyType::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -4,13 +4,13 @@ namespace backend\controllers;
 
 use common\enums\YesNoEnum;
 use Yii;
-use app\models\Product;
+use common\models\Product;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-use app\models\Category;
+use common\models\Category;
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -91,10 +91,18 @@ class ProductController extends Controller
     {
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
-            $model->cover = UploadedFile::getInstance($model, 'cover');
-            if ($model->upload() && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            $file = UploadedFile::getInstance($model, 'cover');
+            if ($file) {
+                $model->cover = $file;
+                if ($model->upload() && $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            } else {
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
+
         }
 
         return $this->render('update', [

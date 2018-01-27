@@ -954,7 +954,7 @@ i.ars {
 .arriv-info3 {
   position: absolute;
   bottom: 32px;
-  left: 42px;
+  left: 66px;
   text-align: center;
 }
 .special h5 {
@@ -1749,12 +1749,11 @@ list-style: none;
 }
 .grid1_of_4{
 	float: left;
-	width: 23.22222%;
+	width: 22.22222%;
 	margin-left: 2.33333%;
 	text-align:center;
 }
 .grid1_of_4:first-child{
-	margin-left: 0;
 	text-align:center;
 }
 .grid1_of_4 h4 {

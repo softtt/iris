@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\Category;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\helpers\Url;
@@ -67,8 +68,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $img1 = Url::to('images/1.jpg');
-        return $this->render('index', ['img' => $img1]);
+
+        $irisCat = Category::findByName('iris')->getModels()[0];
+        return $this->render('index', ['irisCat' => $irisCat]);
     }
 
     /**

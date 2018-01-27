@@ -3,7 +3,7 @@
 namespace common\services;
 
 
-use app\models\Category;
+use common\models\Category;
 use yii\data\ArrayDataProvider;
 use yii\db\Query;
 

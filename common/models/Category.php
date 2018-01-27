@@ -1,9 +1,10 @@
 <?php
 
-namespace app\models;
+namespace common\models;
 
 use common\services\CategoryService;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\web\UploadedFile;
 
 /**
@@ -97,5 +98,14 @@ class Category extends \yii\db\ActiveRecord
             }
         }
         return false;
+    }
+
+    public static function findByName($name)
+    {
+        $query = static::find();
+        $query->where('title = "'.$name.'"');
+        return new ActiveDataProvider([
+            'query' => $query
+        ]);
     }
 }
